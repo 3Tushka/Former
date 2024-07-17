@@ -1,0 +1,64 @@
+<form class="form" [formGroup]="userForm" (ngSubmit)="onSubmit()">
+  <div class="form__status">{{ userForm.status }}</div>
+  <div>
+    <label for="name">Name:</label>
+    <input type="text" id="name" formControlName="name" autocomplete="on" />
+  </div>
+  <div>
+    <label for="email">Email:</label>
+    <input type="email" id="email" formControlName="email" autocomplete="on" />
+  </div>
+
+  <div>
+    <label for="password">Password:</label>
+    <input
+      type="password"
+      id="password"
+      formControlName="password"
+      autocomplete="on"
+    />
+  </div>
+
+  <button type="button" (click)="addAddress()">Add Address</button>
+
+  <div formArrayName="address" *ngIf="isAddress">
+    <div
+      *ngFor="let addressItem of address.controls; let i = index"
+      [formGroupName]="i"
+    >
+      <input formControlName="city" placeholder="City: " />
+      <input formControlName="street" placeholder="Street: " />
+      <input formControlName="zip" placeholder="Zip: " />
+      <button type="button" (click)="removeAddress(i)">Remove Skill</button>
+    </div>
+  </div>
+
+  <div class="skills-group" formGroupName="skills">
+    <h2>Skills</h2>
+    <label for="skillName">Skill: </label>
+    <input
+      id="skillName"
+      type="text"
+      formControlName="skillName"
+      autocomplete="on"
+    />
+
+    <label for="experienceInYears">Experience: </label>
+    <input
+      id="experienceInYears"
+      type="text"
+      formControlName="experienceInYears"
+      autocomplete="on"
+    />
+
+    <label for="proficiency">Proficiency: </label>
+    <input
+      id="proficiency"
+      type="text"
+      formControlName="proficiency"
+      autocomplete="on"
+    />
+  </div>
+  <button type="submit" [disabled]="!userForm.valid">Submit</button>
+  <button type="button" (click)="updateProfile()">Update Profile</button>
+</form>
